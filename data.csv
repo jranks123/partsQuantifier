@@ -1,0 +1,103 @@
+ITEM NO.,Spring Part Number,Manufacturer Part Number,SW-File Name(File Name),Issue,DESCRIPTION,QTY.,Unit of Measure,Manufacture Category ,Material,Type
+1,TB-ASM-02-04,,TB-ASM-02-04-ISS-04,4,TB Outer Assembly,1,Pieces,,,In-House Assembly
+1.1,TB-ASM-02-03,,TB-ASM-02-03-ISS-02,2,TB Outer Fabrication Assembly,1,Pieces,,,In-House Assembly
+1.1.1,TB-ASM-02-06,,TB-ASM-02-06-ISS-03,3,TB Outer Fabrication,1,Pieces,Plastic Fabrication,Various Plastics,Manufacturer Assembly
+1.1.1.1,TB-ASM-02-06-PT-1,,TB-ASM-02-06-PT-1-ISS-04,4,Folded Plastic Main Outer Sheet,1,Pieces,Plastic Fabrication,Acrylic-Capped ABS,Manufacturer Part
+1.1.1.2,TB-ASM-02-06-PT-4,,TB-ASM-02-06-PT-4-ISS-02,2,Folded and Machined Electronics Enclosure Frame,1,Pieces,Plastic Fabrication,ABS,Manufacturer Part
+1.1.1.3,TB-ASM-02-06-PT-5,,TB-ASM-02-06-PT-5-ISS-02,2,Rear Base Plate,1,Pieces,Plastic Fabrication,Acrylic-Capped ABS,Manufacturer Part
+1.1.1.4,TB-ASM-02-06-PT-6,,TB-ASM-02-06-PT-6-ISS-02,2,Machined Upper Plastic Bar,1,Pieces,Machined Plastic,ABS,Manufacturer Part
+1.1.1.5,TB-ASM-02-06-PT-7,,TB-ASM-02-06-PT-7,1,Machined Long Vertical Support,4,Pieces,Machined Plastic,ABS,Manufacturer Part
+1.1.1.6,TB-ASM-02-06-PT-8,,TB-ASM-02-06-PT-8-ISS-02,2,Laser Cut Acrylic-Capped ABS Cover Plate,1,Pieces,Lasercut,Acrylic-Capped ABS,Manufacturer Part
+1.1.1.7,TB-ASM-02-06-PT-9,,TB-ASM-02-06-PT-9-ISS-02,2,Machined Base Plate,1,Pieces,Machined Plastic,Acrylic-Capped ABS,Manufacturer Part
+1.1.1.8,TB-ASM-02-06-PT-10,,TB-ASM-02-06-PT-10,1,Perspex Inset Window,1,Pieces,Machined Plastic,Clear Acrylic,Manufacturer Part
+1.1.1.9,TB-ASM-02-06-PT-2,,TB-ASM-02-06-PT-2-ISS-03,3,Front Base Plate,1,Pieces,Plastic Fabrication,Acrylic-Capped ABS,Manufacturer Part
+1.1.1.10,TB-ASM-02-06-PT-11,,TB-ASM-02-06-PT-11,1,Machined Short Vertical Support,2,Pieces,Machined Plastic,ABS,Manufacturer Part
+1.1.2,TB-PRT-02-02,,TB-PRT-02-02,1,Electronics Enclosure Cover,1,Pieces,Machined Plastic,Acrylic-Capped ABS,In-House Part
+1.1.3,TB-PRT-02-28,,TB-PRT-02-28,1,Electronics Enclosure Gasket,1,Pieces,Lasercut,Nitrile,In-House Part
+1.2,TB-PRT-02-20,,TB-PRT-02-20,1,Screen Spacer,1,Pieces,Machined Plastic,Polycarbonate,In-House Part
+1.3,TB-PRT-02-01,,TB-PRT-02-01,1,eScreen Backing,1,Pieces,Machined Plastic,Polycarbonate,In-House Part
+1.4,TB-PRT-02-09,,TB-PRT-02-09,1,TB Feet,2,Pieces,Machined Plastic,Acetal,In-House Part
+1.5,FIX CSKM3x12,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x12 Torx Countersunk DIN 965 ISO 7046,8,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.6,FIX CSKM3x20,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x20 Torx Countersunk DIN 965 ISO 7046,16,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.7,FIX PHM3x8,,Pan Head screw DIN 7985 ISO 7045,1,M3x8 Torx Pan head DIN 7985 ISO 7045,10,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.8,FIX CSKM2.5x8,,Countersunk Head Screw DIN 965 ISO 7046,1,M2.5x8 Torx Countersunk DIN 965 ISO 7046,2,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.9,FIX CSKM3x10,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x10 Torx Countersunk DIN 965 ISO 7046,6,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.10,FIX FWM3,,Flat Washer DIN 433 ISO 7092,1,M3 Flat washerDIN 433 ISO 7092,26,Pieces,Standard Part - Purchased,BZP/SS,In-House Part
+1.11,FIX M3 STDN,,Nut DIN 934 ISO 4032,1,M3 Nut DIN 934 ISO 4032,16,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.12,FIX PHM3x10,,Pan Head screw DIN 7985 ISO 7045,1,M3x10 Torx Pan head DIN 7985 ISO 7045,24,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.13,FIX CSKM3x16,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x16 Torx Countersunk DIN 965 ISO 7046,2,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.14,FIX CSKM3x8,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x8 Torx Countersunk DIN 965 ISO 7046,21,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.15,FIX PHM3x6,,Pan Head screw DIN 7985 ISO 7045,1,M3x6 Torx Pan head DIN 7985 ISO 7045,10,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.16,FIX CSKM4x12,,Countersunk Head Screw DIN 965 ISO 7046,1,M4x12 Torx Countersunk DIN 965 ISO 7046,4,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.17,TB-ASM-02-08,,TB-ASM-02-08-ISS-02,1,TB Solenoid Actuator Assembly,2,Pieces,,,In-House Assembly
+1.17.1,TB-PRT-02-10,,TB-PRT-02-10-ISS-03,2,Solenoid Latch Guide,1,Pieces,Machined Metal,Mild Steel,In-House Part
+1.17.2,TB-PRT-02-11,,TB-PRT-02-11,1,Solenoid Latch,1,Pieces,Machined Metal,Mild Steel,In-House Part
+1.17.3,TB-PRT-02-12,,TB-PRT-02-12,1,Solenoid Link,1,Pieces,Lasercut,Mild Steel,In-House Part
+1.17.4,fIX-ECM8,,FIX-ECM8,1,E-Clip for �8.0 Groove 1mm thickness DIN 471,1,Pieces,Standard Part - Purchased,Stainless steel,In-House Part
+1.17.5,FIX-SP2.5X10,,FIX-SP2.5X10,1,Split Pin (Cotter Pin) 2.5 x 10mm DIN 94 ISO 1234,2,Pieces,Standard Part - Purchased,Stainless Steel,In-House Part
+1.17.6,SP-001,177-0116,SP-001,1,12V Solenoid,1,Pieces,Standard Part - Purchased,,In-House Part
+1.17.7,SP-002,,SP-002,1,Solenoid Spring,1,Pieces,Standard Part - Purchased,,In-House Part
+1.18,TB-ASM-02-08,,TB-ASM-02-08-ISS-02,1,Solenoid Actuator Assembly,2,Pieces,,,In-House Assembly
+1.18.1,TB-PRT-02-10,,TB-PRT-02-10-ISS-03,2,Solenoid Latch Guide,1,Pieces,Machined Metal,Mild Steel,In-House Part
+1.18.2,TB-PRT-02-11,,TB-PRT-02-11,1,Solenoid Latch,1,Pieces,Machined Metal,Mild Steel,In-House Part
+1.18.3,TB-PRT-02-12,,TB-PRT-02-12,1,Solenoid Link,1,Pieces,Lasercut,Mild Steel,In-House Part
+1.18.4,fIX-ECM8,,FIX-ECM8,1,E-Clip for �8.0 Groove 1mm thickness DIN 471,1,Pieces,Standard Part - Purchased,Stainless steel,In-House Part
+1.18.5,FIX-SP2.5X10,,FIX-SP2.5X10,1,Split Pin (Cotter Pin) 2.5 x 10mm DIN 94 ISO 1234,2,Pieces,Standard Part - Purchased,Stainless Steel,In-House Part
+1.18.6,SP-001,177-0116,SP-001,1,12V Solenoid,1,Pieces,Standard Part - Purchased,,In-House Part
+1.18.7,SP-002,,SP-002,1,Solenoid Spring,1,Pieces,Standard Part - Purchased,,In-House Part
+1.19,TB-PRT-02-13-01,,TB-PRT-02-13-01-ISS-03,3,Extrusion 1 - Rear,2,Pieces,Extrusion,Silicone,In-House Part
+1.20,TB-PRT-02-13-02,,TB-PRT-02-13-02-ISS-03,3,Extrusion 2 - Front Left,1,Pieces,Extrusion,Silicone,In-House Part
+1.21,TB-PRT-02-13-03,,TB-PRT-02-13-03-ISS-03,3,Extrusion 3 - Front Right,1,Pieces,Extrusion,Silicone,In-House Part
+1.22,TB-PRT-02-13-04,,TB-PRT-02-13-04-ISS-03,3,Extrusion 4 - Front Top,1,Pieces,Extrusion,Silicone,In-House Part
+1.23,TB-PRT-02-22,,TB-PRT-02-22,1,Lateral Alignment Rail,2,Pieces,Machined Plastic,Acetal,In-House Part
+1.24,TB-PRT-02-26,,TB-PRT-02-26,1,Connector Strengthening Plate,2,Pieces,Lasercut,Mild Steel,In-House Part
+1.25,FIX PWM3,,Penny Washer DIN 9021 ISO 7093,1,M3 Penny washerDIN 9021 ISO 7093,24,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+1.26,SP-007,SWIFT-DOCK-6-L,SP-007,1,Swift Dock 6 L,1,Pieces,Standard Part - Purchased,,In-House Part
+1.27,SP-005,EZ060GXDS0-FDR,SP-005,1,eReader Screen and PCB,1,Pieces,Standard Part - Purchased,,In-House Part
+1.28,SP-003,,SP-003,1,USB Hub,1,Pieces,Standard Part - Purchased,,In-House Part
+1.29,SP-004,,SP-004,1,USB Pen Drive,1,Pieces,Standard Part - Purchased,,In-House Part
+2,TB-ASM-02-02,,TB-ASM-02-02-ISS-03,3,TB Inner Assembly,1,Pieces,,,In-House Assembly
+2.1,FIX BHM3x8,,Button Head Screw DIN 9427 ISO 7380,1,M3x8 Torx Button Head DIN 912 ISO 4762,5,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+2.2,FIX CSKM3x6,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x6 Torx Countersunk DIN 965 ISO 7046,11,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+2.3,FIX BHM3x6,,Button Head Screw DIN 9427 ISO 7380,1,M3x6 Torx Button Head DIN 912 ISO 4762,14,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+2.4,FIX CSKM3x10,,Countersunk Head Screw DIN 965 ISO 7046,1,M3x10 Torx Countersunk DIN 965 ISO 7046,6,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+2.5,FIX CSKM4x10,,Countersunk Head Screw DIN 965 ISO 7046,1,M4x10 Torx Countersunk DIN 965 ISO 7046,4,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+2.6,TB-PRT-02-24,,TB-PRT-02-24,1,Lifting Block - Right,1,Pieces,Machined Metal,Aluminium,In-House Part
+2.7,TB-PRT-02-25,,TB-PRT-02-25,1,Lifting Block - Left,1,Pieces,Machined Metal,Aluminium,In-House Part
+2.8,TB-PRT-02-16,,TB-PRT-02-16,1,Tray D Side Foam,2,Pieces,Foam Fabrication,Closed-Cell Foam,In-House Part
+2.9,TB-PRT-02-17,,TB-PRT-02-17,1,Tray B Side Foam,4,Pieces,Foam Fabrication,Closed-Cell Foam,In-House Part
+2.10,TB-PRT-02-18,,TB-PRT-02-18,1,Tray D Rear Foam,1,Pieces,Foam Fabrication,Closed-Cell Foam,In-House Part
+2.11,TB-PRT-02-15,,TB-PRT-02-15,1,Top Foam,1,Pieces,Foam Fabrication,Closed-Cell Foam,In-House Part
+2.12,TB-ASM-02-01,,TB-ASM-02-01-ISS-03,3,TB Inner Fabrication,1,Pieces,Plastic Fabrication,Various Plastics,Manufacturer Assembly
+2.12.1,TB-ASM-02-01-PRT-2,,TB-ASM-02-01-PRT-2-ISS-02,2,Inner Side - Right,1,Pieces,Machined Plastic,Acetal,Manufacturer Part
+2.12.2,TB-ASM-02-01-PRT-3,,TB-ASM-02-01-PRT-3-ISS-2,2,Inner Side - Left,1,Pieces,Machined Plastic,Acetal,Manufacturer Part
+2.12.3,TB-ASM-02-01-PRT-4,,TB-ASM-02-01-PRT-4-ISS-2,2,Side Outer,2,Pieces,Machined Plastic,Acrylic-Capped ABS,Manufacturer Part
+2.12.4,TB-ASM-02-01-PRT-1,,TB-ASM-02-01-PRT-1-ISS-2,2,Central Folded Sheet,1,Pieces,Plastic Fabrication,Acrylic-Capped ABS,Manufacturer Part
+2.13,TB-ASM-02-11,,TB-ASM-02-11,1,Backing Plate With Inserts,1,Pieces,Sheet Metal,Mild Steel,Manufacturer Assembly
+2.13.1,TB-PRT-02-04,,TB-PRT-02-04-ISS-04,4,Steel Backing Plate,1,Pieces,Sheet Metal,Mild Stel,Manufacturer Part
+2.13.2,FIX SCNM2.5,S-M2.5-0,PEM S type self clinching nut DIN 931 ISO 4032,1,M2.5 Self Clinching Nut DIN 931 ISO 4032,5,Pieces,Standard Part - Purchased,BZP/SS,Manufacturer Part
+2.14,TB-PRT-02-27,,TB-PRT-02-27,1,Solenoid Latch Plate,2,Pieces,Sheet Metal,Mild Steel,In-House Part
+2.15,TB-PRT-02-21,,TB-PRT-02-21,1,Central Reinforcing Plate,1,Pieces,Sheet Metal,Mild Steel,In-House Part
+2.16,SP-006,H1052-PV2,SP-006,1,Penn Elcom Handle,1,Pieces,Standard Part - Purchased,,In-House Part
+3,TB-ASM-02-07,,TB-ASM-02-07-ISS-04,4,TB Inner Tray - D,1,Pieces,,,In-House Assembly
+3.1,TB-PRT-02-05,,TB-PRT-02-05-ISS-02,2,Vacuum Formed Tray,1,Pieces,Small Vac form,HIPS,In-House Part
+3.2,TB-PRT-02-07,,TB-PRT-02-07-ISS-05,5,Picker - Right,1,Pieces,3D printed,SLS Nylon,In-House Part
+3.3,TB-PRT-02-08,,TB-PRT-02-08-ISS-05,5,Picker - Left,1,Pieces,3D printed,SLS Nylon,In-House Part
+3.4,TB-PRT-01-15-B,,TB-PRT-01-15,1,Rear Tray Wall - High,1,Pieces,Lasercut,Acrylic-Capped ABS,In-House Part
+4,TB-ASM-02-07,,TB-ASM-02-07-ISS-04,4,TB Inner Tray - B,2,Pieces,,,In-House Assembly
+4.1,TB-PRT-02-05,,TB-PRT-02-05-ISS-02,2,Vacuum Formed Tray,1,Pieces,Small Vac form,HIPS,In-House Part
+4.2,TB-PRT-02-07,,TB-PRT-02-07-ISS-05,5,Picker - Right,1,Pieces,3D printed,SLS Nylon,In-House Part
+4.3,TB-PRT-02-08,,TB-PRT-02-08-ISS-05,5,Picker - Left,1,Pieces,3D printed,SLS Nylon,In-House Part
+4.4,TB-PRT-01-15-B,,TB-PRT-01-15,1,Rear Tray Wall - High,1,Pieces,Lasercut,Acrylic-Capped ABS,In-House Part
+5,TB-ASM-02-07,,TB-ASM-02-07-ISS-04,4,TB Inner Tray - A,8,Pieces,,,In-House Assembly
+5.1,TB-PRT-02-05,,TB-PRT-02-05-ISS-02,2,Vacuum Formed Tray,1,Pieces,Small Vac form,HIPS,In-House Part
+5.2,TB-PRT-02-07,,TB-PRT-02-07-ISS-05,5,Picker - Right,1,Pieces,3D printed,SLS Nylon,In-House Part
+5.3,TB-PRT-02-08,,TB-PRT-02-08-ISS-05,5,Picker - Left,1,Pieces,3D printed,SLS Nylon,In-House Part
+5.4,TB-PRT-01-15-A,,TB-PRT-01-15,1,Rear Tray Wall - Low,1,Pieces,Lasercut,Acrylic-Capped ABS,In-House Part
+6,,,Aluminium Rail Assembly,1,,2,,,,In-House Assembly
+6.1,,,Aluminium profile LA 429 460mm,,,2,,,,
+6.2,,,Nylon Runner,,,4,,,,
+6.3,,,Nylon Runner Round,,,4,,,,
+6.4,FIX BHM3x12,,Button Head Screw DIN 9427 ISO 7380,1,M3x12 Torx Button Head DIN 912 ISO 4762,2,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+6.5,FIX M3 STDN,,Nut DIN 934 ISO 4032,1,M3 Nut DIN 934 ISO 4032,2,Pieces,Standard Part - Purchased,BZP/SS,In House Part
+6.6,FIX-NSM3X3,,M3 nylon spacer 3mm,1,M3 Nylon spacer 3mm Height 7mm OD,4,Pieces,Standard Part - Purchased,Nylon,In-House Part
