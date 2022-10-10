@@ -1,11 +1,12 @@
 from fileutils import writeResults
 
 class Item(object):
-    def __init__(self, itemNumber, springPartNumber, itemQuantityToBuildParent, itemQuantityToBuildPod):
-        self.itemNumber = itemNumber
+    def __init__(self, itemNumber, springPartNumber, itemQuantityToBuildParent, stock):
+        self.itemNumber = self.cleanItemNumber(itemNumber)
         self.springPartNumber = springPartNumber
         self.itemQuantityToBuildParent = itemQuantityToBuildParent
-        self.itemQuantityToBuildPod = itemQuantityToBuildPod
+        self.itemQuantityToBuildPod = None
+        self.stock = stock
         self.parent = None
         self.children = []
 
@@ -18,11 +19,18 @@ class Item(object):
     def getParent(self):
         return self.parent
 
+    def cleanItemNumber(self, itemNumber):
+        if itemNumber.endswith(".00"):
+            size = len(itemNumber)
+            return itemNumber[:size - 3]
+        return itemNumber
+
+
 class ItemList(object):
     def __init__(self, itemListRaw):
         itemList = []
         for rawItem in itemListRaw:
-            itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[6], "itemQuantityToBuildPod":None}
+            itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3]}
             item = Item(**itemObj)
             itemList.append(item)
         self.items = itemList
