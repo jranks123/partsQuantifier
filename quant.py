@@ -1,24 +1,23 @@
 import csv
 from fileutils import writeResults
-from partsutils import Part, getPart, getParent, getDuplicatePart, toPartsList
+from partsutils import Part, PartsList
 
 def calculateQuantityByItemNumber(partsList):
     results = []
-    for part in partsList:
-        print(part.itemQuantityToBuildParent)
+    for part in partsList.parts:
         accumulatingQuantity = int(part.itemQuantityToBuildParent)
-        parentPart = getParent(part.itemNumber, partsList)
+        parentPart = partsList.getParent(part.itemNumber)
         while(parentPart is not None):
             accumulatingQuantity = accumulatingQuantity * int(parentPart.itemQuantityToBuildParent)
-            parentPart = getParent(parentPart.itemNumber, partsList)
+            parentPart = partsList.getParent(parentPart.itemNumber)
         part.itemQuantityToBuildPod = accumulatingQuantity
     return partsList
 
 
-def calculateQuantityByPartNumber(quantityByItemNumber):
+def calculateQuantityByPartNumber(partsList):
     partsDict = {}
     partsResults = []
-    for part in quantityByItemNumber:
+    for part in partsList.parts:
         springPartNumber = part.springPartNumber
         totalQuantity = part.itemQuantityToBuildPod
         if springPartNumber is not None:
@@ -36,7 +35,7 @@ def writeQuantityByItemNumber(partsList):
     path = ('./results/byItemNumber.csv')
     header = ['item number', 'sprint part number', 'item quantity to build parent', 'item quantity for whole pod']
     rows = []
-    for part in partsList:
+    for part in partsList.parts:
         row = [
             part.itemNumber
             , part.springPartNumber
@@ -57,14 +56,14 @@ with open('data.csv') as f:
     f.close()
 
 partsListRaw.pop(0)
-partsList = toPartsList(partsListRaw)
+partsList = PartsList(partsListRaw)
 
-duplicatePart = getDuplicatePart(partsList)
-if not (duplicatePart):
+duplicatePart = partsList.getDuplicatePart()
+if (duplicatePart):
+    print("Duplicate found: " + duplicatePart.itemNumber)
+
+else:
     partsList = calculateQuantityByItemNumber(partsList)
     writeQuantityByItemNumber(partsList)
     quantityByPartNumber = calculateQuantityByPartNumber(partsList)
     writeQuantityByPartNumber(quantityByPartNumber)
-
-else:
-    print("Duplicate found: " + duplicatePart[0])
