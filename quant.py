@@ -1,76 +1,70 @@
 import csv
+from fileutils import writeResults
+from partsutils import Part, getPart, getParent, getDuplicatePart, toPartsList
 
-
-def getPart(partName, partsList):
-    for part in partsList:
-        if (part[0] == partName):
-            return part
-
-def getParent(part, partsList):
-    if("." not in part):
-        return None
-    partParts = part.split(".")
-    partParts.pop()
-    parent = ".".join(partParts)
-    return getPart(parent, partsList)
-
-def getDuplicatePart(partsList):
-    partsDict = {}
-    for part in partsList:
-        if part[0] not in partsDict:
-            partsDict[part[0]] = 1
-        else:
-            return part
-
-
-def runQuant():
-    f = open('./results/byItemNumber.csv', 'w')
-    writer = csv.writer(f)
-    header = ['item number', 'sprint part number', 'quantity', 'total quantity']
-    writer.writerow(header)
-
+def calculateQuantityByItemNumber(partsList):
     results = []
-
     for part in partsList:
-        accumulatingQuantity = int(part[6])
-        parentPart = getParent(part[0], partsList)
+        print(part.itemQuantityToBuildParent)
+        accumulatingQuantity = int(part.itemQuantityToBuildParent)
+        parentPart = getParent(part.itemNumber, partsList)
         while(parentPart is not None):
-            accumulatingQuantity = accumulatingQuantity * int(parentPart[6])
-            parentPart = getParent(parentPart[0], partsList)
-        row = [part[0], part[1], part[6], accumulatingQuantity]
-        results.append(row)
-        writer.writerow(row)
-    f.close()
+            accumulatingQuantity = accumulatingQuantity * int(parentPart.itemQuantityToBuildParent)
+            parentPart = getParent(parentPart.itemNumber, partsList)
+        part.itemQuantityToBuildPod = accumulatingQuantity
+    return partsList
 
-    f = open('./results/byPart.csv', 'w')
-    writer = csv.writer(f)
-    header = ["sprint part number", "total quantity"]
-    writer.writerow(header)
+
+def calculateQuantityByPartNumber(quantityByItemNumber):
     partsDict = {}
     partsResults = []
-    for part in results:
-        if part[1] is not None:
-            if part[1] not in partsDict:
-                partsDict[part[1]] = part[3]
+    for part in quantityByItemNumber:
+        springPartNumber = part.springPartNumber
+        totalQuantity = part.itemQuantityToBuildPod
+        if springPartNumber is not None:
+            if springPartNumber not in partsDict:
+                partsDict[springPartNumber] = totalQuantity
             else:
-                partsDict[part[1]] = partsDict[part[1]] + part[3]
+                partsDict[springPartNumber] = partsDict[springPartNumber] + totalQuantity
     for key, value in partsDict.items():
         row = [key, value]
         partsResults.append(row)
-
     partsResults.sort()
-    for row in partsResults:
-        writer.writerow(row)
+    return partsResults
+
+def writeQuantityByItemNumber(partsList):
+    path = ('./results/byItemNumber.csv')
+    header = ['item number', 'sprint part number', 'item quantity to build parent', 'item quantity for whole pod']
+    rows = []
+    for part in partsList:
+        row = [
+            part.itemNumber
+            , part.springPartNumber
+            , part.itemQuantityToBuildParent
+            , part.itemQuantityToBuildPod]
+        rows.append(row)
+    writeResults(path, header, rows)
+
+def writeQuantityByPartNumber(quantityByPartNumber):
+    path = ('./results/byPart.csv')
+    header = ["sprint part number", "part quantity for whole pod"]
+    writeResults(path, header, quantityByPartNumber)
 
 
 with open('data.csv') as f:
     reader = csv.reader(f)
-    partsList = list(reader)
+    partsListRaw = list(reader)
+    f.close()
 
-partsList.pop(0)
+partsListRaw.pop(0)
+partsList = toPartsList(partsListRaw)
 
 duplicatePart = getDuplicatePart(partsList)
 if not (duplicatePart):
-    runQuant()
+    partsList = calculateQuantityByItemNumber(partsList)
+    writeQuantityByItemNumber(partsList)
+    quantityByPartNumber = calculateQuantityByPartNumber(partsList)
+    writeQuantityByPartNumber(quantityByPartNumber)
+
 else:
     print("Duplicate found: " + duplicatePart[0])

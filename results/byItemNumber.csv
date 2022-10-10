@@ -1,4 +1,4 @@
-item number,sprint part number,quantity,total quantity
+item number,sprint part number,item quantity to build parent,item quantity for whole pod
 1,TB-ASM-02-04,1,1
 1.1,TB-ASM-02-03,1,1
 1.1.1,TB-ASM-02-06,1,1
