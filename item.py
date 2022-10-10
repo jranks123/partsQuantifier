@@ -15,7 +15,6 @@ class ItemList(object):
             item = Item(**itemObj)
             itemList.append(item)
         self.items = itemList
-        self.setQuantityByItemNumber()
 
     def addItem(self, item):
         items.append(item)
@@ -49,7 +48,7 @@ class ItemList(object):
                 parentItem = self.getParentByItemNumber(parentItem.itemNumber)
             item.itemQuantityToBuildPod = accumulatingQuantity
 
-    def saveItemListToFile(self):
+    def saveToFile(self):
         path = ('./results/byItemNumber.csv')
         header = ['item number', 'sprint part number', 'item quantity to build parent', 'item quantity for whole pod']
         rows = []
