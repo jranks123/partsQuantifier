@@ -6,6 +6,17 @@ class Item(object):
         self.springPartNumber = springPartNumber
         self.itemQuantityToBuildParent = itemQuantityToBuildParent
         self.itemQuantityToBuildPod = itemQuantityToBuildPod
+        self.parent = None
+        self.children = []
+
+    def setParent(self, parent):
+        self.parent = parent
+
+    def addChild(self, child):
+        self.children.append(child)
+
+    def getParent(self):
+        return self.parent
 
 class ItemList(object):
     def __init__(self, itemListRaw):
@@ -15,22 +26,33 @@ class ItemList(object):
             item = Item(**itemObj)
             itemList.append(item)
         self.items = itemList
-
-    def addItem(self, item):
-        items.append(item)
+        self.setParents()
+        self.setChildren()
+        for item in self.items:
+            print("item number: " + item.itemNumber)
+            print("item parent: " + item.parent.itemNumber if item.parent else "No Parent")
+            print("item children: ")
+            for child in item.children:
+                print(child.itemNumber)
 
     def getItemByItemNumber(self, itemItemNumber):
         for item in self.items:
             if (item.itemNumber == itemItemNumber):
                 return item
 
-    def getParentByItemNumber(self, item):
-        if("." not in item):
-            return None
-        itemItems = item.split(".")
-        itemItems.pop()
-        parentItemNumber = ".".join(itemItems)
-        return self.getItemByItemNumber(parentItemNumber)
+    def setParents(self):
+        for item in self.items:
+            if("." in item.itemNumber):
+                itemNumberParts = item.itemNumber.split(".")
+                itemNumberParts.pop()
+                parentItemNumber = ".".join(itemNumberParts)
+                item.setParent(self.getItemByItemNumber(parentItemNumber))
+
+    def setChildren(self):
+        for i in self.items:
+            for j in self.items:
+                if i.parent and i.parent.itemNumber == j.itemNumber:
+                    j.addChild(i)
 
     def getDuplicateItem(self):
         itemsDict = {}
@@ -42,10 +64,10 @@ class ItemList(object):
     def setQuantityByItemNumber(self):
         for item in self.items:
             accumulatingQuantity = int(item.itemQuantityToBuildParent)
-            parentItem = self.getParentByItemNumber(item.itemNumber)
+            parentItem = item.parent
             while(parentItem is not None):
                 accumulatingQuantity = accumulatingQuantity * int(parentItem.itemQuantityToBuildParent)
-                parentItem = self.getParentByItemNumber(parentItem.itemNumber)
+                parentItem = parentItem.parent
             item.itemQuantityToBuildPod = accumulatingQuantity
 
     def saveToFile(self):
