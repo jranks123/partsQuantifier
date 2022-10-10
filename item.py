@@ -9,9 +9,13 @@ class Item(object):
         self.stock = stock
         self.parent = None
         self.children = []
+        self.stockInParentsPlusStockAllocated = 0
 
     def setParent(self, parent):
         self.parent = parent
+
+    def setStockInParentsPlusStockAllocated(self, stockInParentsPlusStockAllocated):
+        self.stockInParentsPlusStockAllocated = stockInParentsPlusStockAllocated
 
     def addChild(self, child):
         self.children.append(child)
@@ -36,12 +40,14 @@ class ItemList(object):
         self.items = itemList
         self.setParents()
         self.setChildren()
-        for item in self.items:
-            print("item number: " + item.itemNumber)
-            print("item parent: " + item.parent.itemNumber if item.parent else "No Parent")
-            print("item children: ")
-            for child in item.children:
-                print(child.itemNumber)
+        self.setRootItems()
+        self.setStockInParentsPlusStockAllocated(self.rootItems)
+        # for item in self.items:
+        #     print("item number: " + item.itemNumber)
+        #     print("item parent: " + item.parent.itemNumber if item.parent else "No Parent")
+        #     print("item children: ")
+        #     for child in item.children:
+        #         print(child.itemNumber)
 
     def getItemByItemNumber(self, itemItemNumber):
         for item in self.items:
@@ -77,6 +83,20 @@ class ItemList(object):
                 accumulatingQuantity = accumulatingQuantity * int(parentItem.itemQuantityToBuildParent)
                 parentItem = parentItem.parent
             item.itemQuantityToBuildPod = accumulatingQuantity
+
+    def setRootItems(self):
+        rootItems = []
+        for item in self.items:
+            if item.parent is None:
+                rootItems.append(item)
+        self.rootItems = rootItems
+
+    def setStockInParentsPlusStockAllocatedForChildren()
+
+    def setStockInParentsPlusStockAllocated():
+        for rootItem in self.rootItems:
+            rootItem.setStockInParentsPlusStockAllocated(rootItem.stock)
+
 
     def saveToFile(self):
         path = ('./results/byItemNumber.csv')
