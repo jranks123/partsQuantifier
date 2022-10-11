@@ -1,4 +1,5 @@
 from fileutils import writeResults
+from springpart import SpringPartList
 
 class Item(object):
     def __init__(self, itemNumber, springPartNumber, itemQuantityToBuildParent, stock):
@@ -6,6 +7,7 @@ class Item(object):
         self.springPartNumber = springPartNumber
         self.itemQuantityToBuildParent = itemQuantityToBuildParent
         self.itemQuantityToBuildPod = None
+        self.springPartQuantityToBuildPod = None
         self.stock = stock
         self.parent = None
         self.children = []
@@ -14,8 +16,17 @@ class Item(object):
     def setParent(self, parent):
         self.parent = parent
 
+    def setSpringPartQuantityToBuildPod(self, springPartQuantityToBuildPod):
+        self.springPartQuantityToBuildPod = springPartQuantityToBuildPod
+
     def setStockInParentsPlusStockAllocated(self, stockInParentsPlusStockAllocated):
         self.stockInParentsPlusStockAllocated = stockInParentsPlusStockAllocated
+
+    def setItemNumberStockInParentLevelsOnly(self, itemNumberStockInParentLevelsOnly):
+        self.itemNumberStockInParentLevelsOnly = itemNumberStockInParentLevelsOnly
+
+    def setNumberOfPodsWorthOfStockInParentLevelsOnly(self, numberOfPodsWorthOfStockInParentLevelsOnly):
+        self.numberOfPodsWorthOfStockInParentLevelsOnly = numberOfPodsWorthOfStockInParentLevelsOnly
 
     def addChild(self, child):
         self.children.append(child)
@@ -40,8 +51,10 @@ class ItemList(object):
         self.items = itemList
         self.setParents()
         self.setChildren()
+        self.setQuantityByItemNumberForAllItems()
+        self.createSpringPartList()
+        self.setSpringPartQuantityToBuildPodForAllItems()
         self.setRootItems()
-        self.setStockInParentsPlusStockAllocated(self.rootItems)
         # for item in self.items:
         #     print("item number: " + item.itemNumber)
         #     print("item parent: " + item.parent.itemNumber if item.parent else "No Parent")
@@ -53,6 +66,15 @@ class ItemList(object):
         for item in self.items:
             if (item.itemNumber == itemItemNumber):
                 return item
+
+    def createSpringPartList(self):
+        self.springPartsList = SpringPartList(self)
+
+    def setSpringPartQuantityToBuildPodForAllItems(self):
+        for item in self.items:
+            for springPart in self.springPartsList.springParts:
+                if item.springPartNumber == springPart.springPartNumber:
+                    item.springPartQuantityToBuildPod = springPart.springPartQuantityToBuildPod
 
     def setParents(self):
         for item in self.items:
@@ -75,7 +97,7 @@ class ItemList(object):
                 return item
         return None
 
-    def setQuantityByItemNumber(self):
+    def setQuantityByItemNumberForAllItems(self):
         for item in self.items:
             accumulatingQuantity = int(item.itemQuantityToBuildParent)
             parentItem = item.parent
@@ -91,22 +113,27 @@ class ItemList(object):
                 rootItems.append(item)
         self.rootItems = rootItems
 
-    def setStockInParentsPlusStockAllocatedForChildren()
-
-    def setStockInParentsPlusStockAllocated():
-        for rootItem in self.rootItems:
-            rootItem.setStockInParentsPlusStockAllocated(rootItem.stock)
+    def calculateStockCollumns(self, items):
+        for item in items:
+            if item.parent is None:
+                item.setStockInParentsPlusStockAllocated(item.stock)
+                item.setItemNumberStockInParentLevelsOnly(0)
+                item.setNumberOfPodsWorthOfStockInParentLevelsOnly(0)
+            elif len(item.children) > 0:
+                for child in item.children:
+                    self.calculateStockCollumns(child)
 
 
     def saveToFile(self):
         path = ('./results/byItemNumber.csv')
-        header = ['item number', 'sprint part number', 'item quantity to build parent', 'item quantity for whole pod']
+        header = ['item number', 'sprint part number', 'item quantity to build parent', 'item quantity for whole pod', 'spring part quantity to build pod']
         rows = []
         for item in self.items:
             row = [
                 item.itemNumber
                 , item.springPartNumber
                 , item.itemQuantityToBuildParent
-                , item.itemQuantityToBuildPod]
+                , item.itemQuantityToBuildPod
+                , item.springPartQuantityToBuildPod]
             rows.append(row)
         writeResults(path, header, rows)

@@ -1,7 +1,7 @@
 Item Number,Spring Part Number,item Quantity to build parent,Stock
 12.00,a,1,1
-12.10,b,1,149
-12.20,c,2,0
+12.1,b,1,149
+12.2,c,2,0
 12.2.1,d,2,72
 12.2.1.1,e,2,3336
 12.2.1.2,f,1,524
