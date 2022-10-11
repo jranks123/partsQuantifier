@@ -40,6 +40,7 @@ class ItemList(object):
                 parentItemNumber = ".".join(itemNumberParts)
                 item.setParent(self.getItemByItemNumber(parentItemNumber))
 
+
     def setChildren(self):
         for i in self.items:
             for j in self.items:
@@ -69,41 +70,101 @@ class ItemList(object):
                 rootItems.append(item)
         self.rootItems = rootItems
 
-    def calculateStockCollumns(self, items):
-        for item in items:
-            if item.parent is None:
-                item.setStockInParentsPlusStockAllocated(item.stock)
-                item.setItemNumberStockInParentLevelsOnly(0)
-                item.setNumberOfPodsWorthOfStockInParentLevelsOnly(0)
-                item.setItemNumberParentStockOffset(0)
-                item.setPartNumberParentStockOffset(0)
+
+    def setItemsWithSamePartNumber(self):
+        for itemToCheck in self.items:
+            itemsWithSamePartNumber = []
+            for item in self.items:
+                if item.springPartNumber == itemToCheck.springPartNumber and item.itemNumber != itemToCheck.itemNumber:
+                    itemsWithSamePartNumber.append(item)
+                item.setItemsWithSamePartNumber(itemsWithSamePartNumber)
+
+    def partOneCompleteForAllItems(self):
+        for item in self.items:
+            if item.partOneCompleteForThisItem == False:
+                return False
+        return True
+
+    def calculateStockCollumnsPartOneForItem(self, item):
+        item.setAllItemsUpToThisPointHaveBeenSolved(True)
+        if item.isDuplicateItem() and item.haveSolvedUpToAllOtherItemsWithSameSpringPartNumber() == False:
+            # do nothing
+            return
+        else:
+            if item.partOneCompleteForThisItem == False:
+                item.setItemNumberStockInParentLevelsOnly(item.itemQuantityToBuildParent, item.parent.stockInParentsPlusStockAllocated if item.parent else 0)
+                item.setNumberOfPodsWorthOfStockInParentLevelsOnly(item.itemNumberStockInParentLevelsOnly, item.itemQuantityToBuildPod)
                 item.setStockRatio(item.itemQuantityToBuildPod, item.springPartQuantityToBuildPod)
+                maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates = item.getMaxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates()
+                if item.isDuplicateItem():
+                    item.setItemNumberParentStockOffset(maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates, item.numberOfPodsWorthOfStockInParentLevelsOnly, item.itemQuantityToBuildPod)
+                    item.setPartNumberParentStockOffset()
+                else:
+                    item.setItemNumberParentStockOffsetNonDuplicate(0)
+                    item.setPartNumberParentStockOffsetNonDuplicate(0)
                 item.setStockAllocated(item.stock, item.itemNumberParentStockOffset, item.partNumberParentStockOffset, item.stockRatio)
-            elif len(item.children) > 0:
-                for child in item.children:
-                    self.calculateStockCollumns(child)
+                item.setStockInParentsPlusStockAllocated(item.stockAllocated, item.itemQuantityToBuildParent, item.parent.stockAllocated if item.parent else 0)
+                item.setPartOneCompleteForThisItem(True)
+            for child in item.children:
+                self.calculateStockCollumnsPartOneForItem(child)
+
+
+    def calculateStockCollumnsPartOne(self, rootItems):
+        # because of the duplicates, it is likely that we will need to try a couple of times
+        while self.partOneCompleteForAllItems() == False:
+            for item in rootItems:
+                 self.calculateStockCollumnsPartOneForItem(item)
+
+    def calculateStockCollumnsPartTwo(self, items):
+
+        for item in items:
+            if item.parent is not None:
+                item.setItemNumberParentStockOffset(item.maxNumberOfPodsWorthOfStockInParentLevelsOnlyBetweenItemsWithSamePartNumber, item.numberOfPodsWorthOfStockInParentLevelsOnly, item.itemQuantityToBuildPod)
+                self.calculateStockCollumnsPartTwo(item.children)
+
+
 
 
     def saveToFile(self):
         path = ('./results/byItemNumber.csv')
         header = [
             'item number'
+            , 'item parent'
+            , 'item children'
             , 'sprint part number'
             , 'item quantity to build parent'
             , 'item quantity for whole pod'
             , 'spring part quantity to build pod'
+            , 'stock'
+            , 'stock In Parents Plus Stock Allocated'
+            , 'Item Number Stock In Parent Levels Only'
+            , 'Number Of Pods Worth Of Stock In Parent Levels Only'
+            , 'Item number parent stock offset'
+            , 'Part Number Parent Stock Offset'
             , 'stock ratio'
             , 'stock allocated'
+            , 'Can build next level up using stock allocated for this item number only'
+
         ]
         rows = []
         for item in self.items:
             row = [
                 item.itemNumber
+                , item.parent.itemNumber if item.parent else "N/A"
+                , item.getChildrenString()
                 , item.springPartNumber
                 , item.itemQuantityToBuildParent
                 , item.itemQuantityToBuildPod
                 , item.springPartQuantityToBuildPod
+                , item.stock
+                , item.stockInParentsPlusStockAllocated
+                , item.itemNumberStockInParentLevelsOnly
+                , item.numberOfPodsWorthOfStockInParentLevelsOnly
+                , item.itemNumberParentStockOffset
+                , item.partNumberParentStockOffset
                 , item.stockRatio
-                , item.stockAllocated]
+                , item.stockAllocated
+                , item.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly    
+                ]
             rows.append(row)
         writeResults(path, header, rows)
