@@ -15,6 +15,8 @@ class Item(object):
         self.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly = None
         self.numberOfPodsWorthOfStockInParentLevelsOnly = None
         self.itemNumberStockInParentLevelsOnly = None
+        self.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere = None
+        self.remainderNeeded = None
         self.stock = int(stock)
         self.parent = None
         self.children = []
@@ -67,9 +69,21 @@ class Item(object):
     def setStockAllocated(self, stock, itemNumberParentStockOffset, partNumberParentStockOffset, stockRatio):
         self.stockAllocated = itemNumberParentStockOffset + (stockRatio * (stock - partNumberParentStockOffset))
 
-    def setCanBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly(self, stockRatio, stockAllocated):
-        self.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly = stockAllocated/stockRatio
+    def setCanBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly(self, stockAllocated, itemQuantityToBuildParent):
+        self.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly = stockAllocated/itemQuantityToBuildParent
 
+    def setCouldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere(self, children, stockAllocated):
+        if len(children) == 0:
+            self.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere = stockAllocated
+        else:
+            array = []
+            for child in children:
+                calc = child.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere / child.itemQuantityToBuildParent
+                array.append(calc)
+            self.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere = min(array) + stockAllocated
+
+    def setRemainderNeeded(self, parentRemainderNeeded, itemQuantityToBuildParent, stockAllocated):
+        self.remainderNeeded = (parentRemainderNeeded * itemQuantityToBuildParent) - stockAllocated
 
     def setItemsWithSamePartNumber(self, items):
         self.itemsWithSamePartNumber = items

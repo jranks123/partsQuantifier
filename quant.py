@@ -8,6 +8,8 @@ with open('data.csv') as f:
     itemListRaw = list(reader)
     f.close()
 
+totalNumberOfPods = 151
+
 itemListRaw.pop(0)
 itemList = ItemList(itemListRaw)
 
@@ -15,6 +17,7 @@ duplicateItem = itemList.getDuplicateItem()
 if (duplicateItem):
     print("Duplicate found: " + duplicateItem.itemNumber)
 else:
-    itemList.calculateStockCollumnsPartOne(itemList.rootItems)
+    itemList.calculateStockCollumns(itemList.rootItems)
+    itemList.calculateFinalCollumns(itemList.rootItems, totalNumberOfPods)
     itemList.saveToFile()
     itemList.springPartsList.saveToFile()

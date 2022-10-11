@@ -98,7 +98,7 @@ class ItemList(object):
                 print(" ")
 
 
-    def calculateStockCollumnsPartOneForItem(self, item):
+    def calculateStockCollumnsPartOne(self, item):
         item.setAllItemsUpToThisPointHaveBeenSolved(True)
         if item.isDuplicateItem() and item.haveSolvedUpToAllOtherItemsWithSameSpringPartNumber() == False:
             item.setItemNumberStockInParentLevelsOnly(item.itemQuantityToBuildParent, item.parent.stockInParentsPlusStockAllocated if item.parent else 0)
@@ -125,19 +125,37 @@ class ItemList(object):
                     item.setPartNumberParentStockOffsetNonDuplicate(0)
                 item.setStockAllocated(item.stock, item.itemNumberParentStockOffset, item.partNumberParentStockOffset, item.stockRatio)
                 item.setStockInParentsPlusStockAllocated(item.stockAllocated, item.itemQuantityToBuildParent, item.parent.stockInParentsPlusStockAllocated if item.parent else 0)
+                item.setCanBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly(item.stockAllocated, item.itemQuantityToBuildParent)
                 item.setPartOneCompleteForThisItem(True)
             for child in item.children:
-                self.calculateStockCollumnsPartOneForItem(child)
+                self.calculateStockCollumnsPartOne(child)
 
 
-    def calculateStockCollumnsPartOne(self, rootItems):
+    def calculateStockCollumns(self, rootItems):
         # because of the duplicates, it is possible that we will need to try a couple of times
         count = 1
         while self.partOneCompleteForAllItems() == False:
             for item in rootItems:
-                 self.calculateStockCollumnsPartOneForItem(item)
+                 self.calculateStockCollumnsPartOne(item)
             count+=1
 
+
+    def calculateCouldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere(self, item):
+        for child in item.children:
+            self.calculateCouldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere(child)
+        item.setCouldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere(item.children, item.stockAllocated)
+
+    def calculateRemainderNeeded(self, item, targetNumberOfPods):
+        parentRemainderNeeded = targetNumberOfPods if item.parent is None else item.parent.remainderNeeded
+        item.setRemainderNeeded(parentRemainderNeeded, item.itemQuantityToBuildParent, item.stockAllocated)
+        for child in item.children:
+            self.calculateRemainderNeeded(child, targetNumberOfPods)
+
+
+    def calculateFinalCollumns(self, rootItems, targetNumberOfPods):
+        for item in rootItems:
+            self.calculateCouldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere(item)
+            self.calculateRemainderNeeded(item, targetNumberOfPods)
 
 
 
@@ -160,6 +178,8 @@ class ItemList(object):
             , 'stock ratio'
             , 'stock allocated'
             , 'Can build next level up using stock allocated for this item number only'
+            , 'Could have of this item number if we use all stock allocated in children and build up to here'
+            , 'remainder needed'
 
         ]
         rows = []
@@ -181,6 +201,8 @@ class ItemList(object):
                 , item.stockRatio
                 , item.stockAllocated
                 , item.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly
+                , item.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere
+                , item.remainderNeeded
                 ]
             rows.append(row)
         writeResults(path, header, rows)
