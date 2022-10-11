@@ -16,7 +16,5 @@ if (duplicateItem):
     print("Duplicate found: " + duplicateItem.itemNumber)
 else:
     itemList.calculateStockCollumnsPartOne(itemList.rootItems)
-    itemList.setItemsWithSamePartNumber()
-    itemList.calculateStockCollumnsPartTwo(itemList.rootItems)
     itemList.saveToFile()
     itemList.springPartsList.saveToFile()

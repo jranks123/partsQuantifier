@@ -50,7 +50,7 @@ class Item(object):
         self.stockRatio = itemQuantityToBuildPod/float(springPartQuantityToBuildPod)
 
     def setItemNumberParentStockOffset(self, maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates, numberOfPodsWorthOfStockInParentLevelsOnly, itemQuantityToBuildPod):
-        self.itemNumberParentStockOffset = (maxNumberOfPodsWorthOfStockInParentLevelsOnlyBetweenItemsWithSamePartNumber - numberOfPodsWorthOfStockInParentLevelsOnly) * itemQuantityToBuildPod
+        self.itemNumberParentStockOffset = (maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates - numberOfPodsWorthOfStockInParentLevelsOnly) * itemQuantityToBuildPod
 
     def setItemNumberParentStockOffsetNonDuplicate(self, itemNumberParentStockOffset):
         self.itemNumberParentStockOffset = itemNumberParentStockOffset

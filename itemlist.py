@@ -1,3 +1,4 @@
+# coding: utf-8
 from fileutils import writeResults
 from springpart import SpringPartList
 from item import Item
@@ -16,6 +17,7 @@ class ItemList(object):
         self.createSpringPartList()
         self.setSpringPartQuantityToBuildPodForAllItems()
         self.setRootItems()
+        self.setItemsWithSamePartNumber()
 
 
     def getItemByItemNumber(self, itemItemNumber):
@@ -76,8 +78,9 @@ class ItemList(object):
             itemsWithSamePartNumber = []
             for item in self.items:
                 if item.springPartNumber == itemToCheck.springPartNumber and item.itemNumber != itemToCheck.itemNumber:
-                    itemsWithSamePartNumber.append(item)
-                item.setItemsWithSamePartNumber(itemsWithSamePartNumber)
+                    itemsWithSamePartNumber.append(itemToCheck)
+                    if len(itemsWithSamePartNumber) > 0:
+                        item.setItemsWithSamePartNumber(itemsWithSamePartNumber)
 
     def partOneCompleteForAllItems(self):
         for item in self.items:
@@ -85,19 +88,37 @@ class ItemList(object):
                 return False
         return True
 
+    def printItemStats(self, itemNumber):
+        for item in self.items:
+            if item.itemNumber == itemNumber:
+                print(" ")
+                print("ItemNumber: " + item.itemNumber)
+                print("No of pods worth of item number stock in parent levels only: " + str(item.numberOfPodsWorthOfStockInParentLevelsOnly))
+                print("Item Number Parent Stock Offest: " + str(item.itemNumberParentStockOffset) if item.setItemNumberParentStockOffset else "N/A")
+                print(" ")
+
+
     def calculateStockCollumnsPartOneForItem(self, item):
         item.setAllItemsUpToThisPointHaveBeenSolved(True)
         if item.isDuplicateItem() and item.haveSolvedUpToAllOtherItemsWithSameSpringPartNumber() == False:
-            # do nothing
+            item.setItemNumberStockInParentLevelsOnly(item.itemQuantityToBuildParent, item.parent.stockInParentsPlusStockAllocated if item.parent else 0)
+            item.setNumberOfPodsWorthOfStockInParentLevelsOnly(item.itemNumberStockInParentLevelsOnly, item.itemQuantityToBuildPod)
             return
         else:
             if item.partOneCompleteForThisItem == False:
                 item.setItemNumberStockInParentLevelsOnly(item.itemQuantityToBuildParent, item.parent.stockInParentsPlusStockAllocated if item.parent else 0)
                 item.setNumberOfPodsWorthOfStockInParentLevelsOnly(item.itemNumberStockInParentLevelsOnly, item.itemQuantityToBuildPod)
                 item.setStockRatio(item.itemQuantityToBuildPod, item.springPartQuantityToBuildPod)
-                maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates = item.getMaxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates()
+                # we will only get to this line if we have solved for all other duplicates already
                 if item.isDuplicateItem():
+                    maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates = item.getMaxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates()
+                    # set the item number parent stock offset for this duplicate
                     item.setItemNumberParentStockOffset(maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates, item.numberOfPodsWorthOfStockInParentLevelsOnly, item.itemQuantityToBuildPod)
+
+                    # we now have to set it for all the other duplicates, as setPartNumberParentStockOffset() needs to know the itemNumberParentStockOffset for all duplicates
+                    for duplicateItem in item.itemsWithSamePartNumber:
+                        duplicateItem.setItemNumberParentStockOffset(maxNumberOfPodsWorthOfStockInParentLevelsOnlyForDuplicates, duplicateItem.numberOfPodsWorthOfStockInParentLevelsOnly, duplicateItem.itemQuantityToBuildPod)
+
                     item.setPartNumberParentStockOffset()
                 else:
                     item.setItemNumberParentStockOffsetNonDuplicate(0)
@@ -110,17 +131,12 @@ class ItemList(object):
 
 
     def calculateStockCollumnsPartOne(self, rootItems):
-        # because of the duplicates, it is likely that we will need to try a couple of times
+        # because of the duplicates, it is possible that we will need to try a couple of times
+        count = 1
         while self.partOneCompleteForAllItems() == False:
             for item in rootItems:
                  self.calculateStockCollumnsPartOneForItem(item)
-
-    def calculateStockCollumnsPartTwo(self, items):
-
-        for item in items:
-            if item.parent is not None:
-                item.setItemNumberParentStockOffset(item.maxNumberOfPodsWorthOfStockInParentLevelsOnlyBetweenItemsWithSamePartNumber, item.numberOfPodsWorthOfStockInParentLevelsOnly, item.itemQuantityToBuildPod)
-                self.calculateStockCollumnsPartTwo(item.children)
+            count+=1
 
 
 
@@ -164,7 +180,7 @@ class ItemList(object):
                 , item.partNumberParentStockOffset
                 , item.stockRatio
                 , item.stockAllocated
-                , item.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly    
+                , item.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly
                 ]
             rows.append(row)
         writeResults(path, header, rows)
