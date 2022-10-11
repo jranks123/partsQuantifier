@@ -124,7 +124,7 @@ class ItemList(object):
                     item.setItemNumberParentStockOffsetNonDuplicate(0)
                     item.setPartNumberParentStockOffsetNonDuplicate(0)
                 item.setStockAllocated(item.stock, item.itemNumberParentStockOffset, item.partNumberParentStockOffset, item.stockRatio)
-                item.setStockInParentsPlusStockAllocated(item.stockAllocated, item.itemQuantityToBuildParent, item.parent.stockAllocated if item.parent else 0)
+                item.setStockInParentsPlusStockAllocated(item.stockAllocated, item.itemQuantityToBuildParent, item.parent.stockInParentsPlusStockAllocated if item.parent else 0)
                 item.setPartOneCompleteForThisItem(True)
             for child in item.children:
                 self.calculateStockCollumnsPartOneForItem(child)
