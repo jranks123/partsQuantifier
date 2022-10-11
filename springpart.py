@@ -4,6 +4,10 @@ class SpringPart(object):
     def __init__(self, springPartNumber, springPartQuantityToBuildPod):
         self.springPartNumber = springPartNumber
         self.springPartQuantityToBuildPod = springPartQuantityToBuildPod
+        self.toBuy = None
+
+    def setToBuy(self, toBuy):
+        self.toBuy = toBuy
 
 class SpringPartList(object):
     def __init__(self, itemList):
@@ -21,6 +25,11 @@ class SpringPartList(object):
             partsResults.append(SpringPart(key, value))
         partsResults.sort()
         self.springParts = partsResults
+
+    def getSpringPartBySpringPartNumber(self, springPartNumber):
+        for springPart in self.springParts:
+            if springPart.springPartNumber == springPartNumber:
+                return springPart
 
     def saveToFile(self):
         path = ('./results/byPart.csv')

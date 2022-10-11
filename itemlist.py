@@ -7,14 +7,14 @@ class ItemList(object):
     def __init__(self, itemListRaw):
         itemList = []
         for rawItem in itemListRaw:
-            itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3]}
+            itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3], "type": rawItem[4]}
             item = Item(**itemObj)
             itemList.append(item)
         self.items = itemList
         self.setParents()
         self.setChildren()
         self.setQuantityByItemNumberForAllItems()
-        self.createSpringPartList()
+        self.springPartsList = SpringPartList(self)
         self.setSpringPartQuantityToBuildPodForAllItems()
         self.setRootItems()
         self.setItemsWithSamePartNumber()
@@ -24,9 +24,6 @@ class ItemList(object):
         for item in self.items:
             if (item.itemNumber == itemItemNumber):
                 return item
-
-    def createSpringPartList(self):
-        self.springPartsList = SpringPartList(self)
 
     def setSpringPartQuantityToBuildPodForAllItems(self):
         for item in self.items:
@@ -151,11 +148,23 @@ class ItemList(object):
         for child in item.children:
             self.calculateRemainderNeeded(child, targetNumberOfPods)
 
+    def calculateToBuyPartNumber(self):
+        for springPart in self.springPartsList.springParts:
+            for item in self.items:
+                if item.type == "purchased only" or item.type == "assembly/purchased":
+                    if item.springPartNumber == springPart.springPartNumber:
+                        springPart.setToBuy(springPart.toBuy + item.remainderNeeded if springPart.toBuy is not None else item.remainderNeeded)
+
+        for item in self.items:
+            springPart = self.springPartsList.getSpringPartBySpringPartNumber(item.springPartNumber)
+            item.setToBuyPartNumber(springPart.toBuy)
+
 
     def calculateFinalCollumns(self, rootItems, targetNumberOfPods):
         for item in rootItems:
             self.calculateCouldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere(item)
             self.calculateRemainderNeeded(item, targetNumberOfPods)
+        self.calculateToBuyPartNumber()
 
 
 
@@ -180,6 +189,7 @@ class ItemList(object):
             , 'Can build next level up using stock allocated for this item number only'
             , 'Could have of this item number if we use all stock allocated in children and build up to here'
             , 'remainder needed'
+            , 'To Buy (part number)'
 
         ]
         rows = []
@@ -203,6 +213,7 @@ class ItemList(object):
                 , item.canBuildNextLevelUpUsingStockAllocatedForThisItemNumberOnly
                 , item.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere
                 , item.remainderNeeded
+                , item.toBuyPartNumber
                 ]
             rows.append(row)
         writeResults(path, header, rows)

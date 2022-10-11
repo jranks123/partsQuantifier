@@ -2,10 +2,11 @@ from fileutils import writeResults
 from springpart import SpringPartList
 
 class Item(object):
-    def __init__(self, itemNumber, springPartNumber, itemQuantityToBuildParent, stock):
+    def __init__(self, itemNumber, springPartNumber, itemQuantityToBuildParent, stock, type):
         self.itemNumber = self.cleanItemNumber(itemNumber)
         self.springPartNumber = springPartNumber
         self.itemQuantityToBuildParent = int(itemQuantityToBuildParent)
+        self.type = type
         self.itemQuantityToBuildPod = None
         self.springPartQuantityToBuildPod = None
         self.itemNumberParentStockOffset = None
@@ -17,6 +18,7 @@ class Item(object):
         self.itemNumberStockInParentLevelsOnly = None
         self.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere = None
         self.remainderNeeded = None
+        self.toBuyPartNumber = None
         self.stock = int(stock)
         self.parent = None
         self.children = []
@@ -84,6 +86,9 @@ class Item(object):
 
     def setRemainderNeeded(self, parentRemainderNeeded, itemQuantityToBuildParent, stockAllocated):
         self.remainderNeeded = (parentRemainderNeeded * itemQuantityToBuildParent) - stockAllocated
+
+    def setToBuyPartNumber(self, toBuyPartNumber):
+        self.toBuyPartNumber = toBuyPartNumber
 
     def setItemsWithSamePartNumber(self, items):
         self.itemsWithSamePartNumber = items
