@@ -1,5 +1,6 @@
 from fileutils import writeResults
 from springpart import SpringPartList
+from item import Item
 
 class ItemList(object):
     def __init__(self, itemListRaw):
@@ -15,12 +16,7 @@ class ItemList(object):
         self.createSpringPartList()
         self.setSpringPartQuantityToBuildPodForAllItems()
         self.setRootItems()
-        # for item in self.items:
-        #     print("item number: " + item.itemNumber)
-        #     print("item parent: " + item.parent.itemNumber if item.parent else "No Parent")
-        #     print("item children: ")
-        #     for child in item.children:
-        #         print(child.itemNumber)
+
 
     def getItemByItemNumber(self, itemItemNumber):
         for item in self.items:
@@ -79,6 +75,10 @@ class ItemList(object):
                 item.setStockInParentsPlusStockAllocated(item.stock)
                 item.setItemNumberStockInParentLevelsOnly(0)
                 item.setNumberOfPodsWorthOfStockInParentLevelsOnly(0)
+                item.setItemNumberParentStockOffset(0)
+                item.setPartNumberParentStockOffset(0)
+                item.setStockRatio(item.itemQuantityToBuildPod, item.springPartQuantityToBuildPod)
+                item.setStockAllocated(item.stock, item.itemNumberParentStockOffset, item.partNumberParentStockOffset, item.stockRatio)
             elif len(item.children) > 0:
                 for child in item.children:
                     self.calculateStockCollumns(child)
@@ -86,7 +86,15 @@ class ItemList(object):
 
     def saveToFile(self):
         path = ('./results/byItemNumber.csv')
-        header = ['item number', 'sprint part number', 'item quantity to build parent', 'item quantity for whole pod', 'spring part quantity to build pod']
+        header = [
+            'item number'
+            , 'sprint part number'
+            , 'item quantity to build parent'
+            , 'item quantity for whole pod'
+            , 'spring part quantity to build pod'
+            , 'stock ratio'
+            , 'stock allocated'
+        ]
         rows = []
         for item in self.items:
             row = [
@@ -94,6 +102,8 @@ class ItemList(object):
                 , item.springPartNumber
                 , item.itemQuantityToBuildParent
                 , item.itemQuantityToBuildPod
-                , item.springPartQuantityToBuildPod]
+                , item.springPartQuantityToBuildPod
+                , item.stockRatio
+                , item.stockAllocated]
             rows.append(row)
         writeResults(path, header, rows)
