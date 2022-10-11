@@ -1,7 +1,7 @@
 import csv
-from fileutils import writeResults, writeQuantityByPartNumber
-from item import Item, ItemList
-from springpart import SpringPartList
+from fileutils import writeResults
+from itemlist import ItemList
+
 
 with open('data.csv') as f:
     reader = csv.reader(f)
@@ -15,7 +15,6 @@ duplicateItem = itemList.getDuplicateItem()
 if (duplicateItem):
     print("Duplicate found: " + duplicateItem.itemNumber)
 else:
-    itemList.setQuantityByItemNumber()
+    itemList.calculateStockCollumnsPartOne(itemList.rootItems)
     itemList.saveToFile()
-    springParts = SpringPartList(itemList)
-    springParts.saveToFile()
+    itemList.springPartsList.saveToFile()
