@@ -9,6 +9,9 @@ class SpringPart(object):
     def setToBuy(self, toBuy):
         self.toBuy = toBuy
 
+    def __lt__(self, other):
+        return self.springPartNumber < other.springPartNumber
+
 class SpringPartList(object):
     def __init__(self, itemList):
         partsDict = {}
