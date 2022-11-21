@@ -150,6 +150,7 @@ class ItemList(object):
 
     def calculateToBuyPartNumber(self):
         for springPart in self.springPartsList.springParts:
+            springPart.setToBuy(0)
             for item in self.items:
                 if item.type == "purchased only" or item.type == "assembly/purchased":
                     if item.springPartNumber == springPart.springPartNumber:

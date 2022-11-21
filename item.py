@@ -6,7 +6,7 @@ class Item(object):
         self.itemNumber = self.cleanItemNumber(itemNumber)
         self.springPartNumber = springPartNumber
         self.itemQuantityToBuildParent = int(itemQuantityToBuildParent)
-        self.type = type
+        self.type = str.lower(type)
         self.itemQuantityToBuildPod = None
         self.springPartQuantityToBuildPod = None
         self.itemNumberParentStockOffset = None
