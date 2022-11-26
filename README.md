@@ -15,7 +15,6 @@ You need to install the following two packages (remove the backticks if pasting 
 
 You will need to download the Google API creds from https://drive.google.com/drive/folders/1MlHGu1mYZYg29DthnUIk-EwFtrj-uXAe and pass in the path to the creds when you run the program (see below). If you don't have access to this file, please email jonnyrankin@googlemail.com
 
-
 # Running Instructions
 
 open terminal
@@ -25,9 +24,7 @@ type `python quant.py <path to creds>` in terminal
 i.e `python quant.py /Users/jonathanrankin/Downloads/parts-quantifier-c6b9beaaf2f2.json`
 
 
-
-
-Things to note:
+# Things to note:
 
 
 - the highest level item number should be an integer, without decimal places (i.e 5, not 5.0)
