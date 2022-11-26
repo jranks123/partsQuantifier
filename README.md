@@ -13,7 +13,7 @@ You need to install the following two packages (remove the backticks if pasting 
 
 # CREDS
 
-You will need to download the Google API creds (ask Jonny) and pass in the path to the creds when you run the program (see below)
+You will need to download the Google API creds from https://drive.google.com/drive/folders/1MlHGu1mYZYg29DthnUIk-EwFtrj-uXAe and pass in the path to the creds when you run the program (see below). If you don't have access to this file, please email jonnyrankin@googlemail.com
 
 
 # Running Instructions
