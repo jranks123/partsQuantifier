@@ -1,10 +1,48 @@
 Item Number,Spring Part Number,item Quantity to build parent,Stock,Type
-12,a,1,1,assembly only
-12.1,b,1,149,assembly/purchased
-12.2,c,2,0,assembly only
-12.2.1,d,2,72,assembly only
-12.2.1.1,e,2,3336,assembly/purchased
-12.2.1.2,f,1,524,assembly/purchased
-12.2.2,g,4,48,assembly only
-12.2.2.1,e,2,3336,assembly/purchased
-12.2.2.2,h,1,1144,assembly/purchased
+1,TB-ASM-02-04,1,20,Assembly only
+1.1,TB-ASM-02-03,1,15,Purchased only
+1.1.1,TB-ASM-02-06,1,10,Assembly only
+1.1.2,TB-PRT-02-02,1,10,Assembly only
+1.1.3,TB-PRT-02-28,1,10,Assembly only
+1.2,TB-PRT-02-20,1,10,Assembly/Purchased
+1.3,TB-PRT-02-01,1,10,Assembly/Purchased
+1.4,TB-PRT-02-09,2,20,Assembly/Purchased
+1.5,FIX CSKM3x12,8,80,Assembly/Purchased
+1.6,FIX CSKM3x20,16,160,Assembly/Purchased
+1.7,FIX PHM3x8,10,100,Assembly/Purchased
+1.8,FIX CSKM2.5x8,2,20,Assembly/Purchased
+1.9,FIX CSKM3x10,6,120,Assembly/Purchased
+1.1,FIX FWM3,26,260,Assembly/Purchased
+1.11,FIX M3 STDN,16,200,Assembly/Purchased
+1.12,FIX PHM3x10,24,240,Assembly/Purchased
+1.13,FIX CSKM3x16,2,20,Assembly/Purchased
+1.14,FIX CSKM3x8,21,210,Assembly/Purchased
+1.15,FIX PHM3x6,10,100,Assembly/Purchased
+1.16,FIX CSKM4x12,4,40,Assembly/Purchased
+1.17,TB-ASM-02-08,2,40,Assembly only
+1.17.1,TB-PRT-02-10,1,40,Assembly/Purchased
+1.17.2,TB-PRT-02-11,1,40,Assembly/Purchased
+1.17.3,TB-PRT-02-12,1,40,Assembly/Purchased
+1.17.4,FIX-ECM8,1,40,Assembly/Purchased
+1.17.5,FIX-SP2.5X10,2,80,Assembly/Purchased
+1.17.6,SP-001,1,40,Assembly/Purchased
+1.17.7,SP-002,1,40,Assembly/Purchased
+1.18,TB-ASM-02-08,2,40,Assembly only
+1.18.1,TB-PRT-02-10,1,40,Assembly/Purchased
+1.18.2,TB-PRT-02-11,1,40,Assembly/Purchased
+1.18.3,TB-PRT-02-12,1,40,Assembly/Purchased
+1.18.4,FIX-ECM8,1,40,Assembly/Purchased
+1.18.5,FIX-SP2.5X10,2,80,Assembly/Purchased
+1.18.6,SP-001,1,40,Assembly/Purchased
+1.18.7,SP-002,1,40,Assembly/Purchased
+1.19,TB-PRT-02-13-01,2,20,Assembly/Purchased
+1.2,TB-PRT-02-13-02,1,10,Assembly/Purchased
+1.21,TB-PRT-02-13-03,1,10,Assembly/Purchased
+1.22,TB-PRT-02-13-04,1,10,Assembly/Purchased
+1.23,TB-PRT-02-22,2,20,Assembly/Purchased
+1.24,TB-PRT-02-26,2,20,Assembly/Purchased
+1.25,FIX PWM3,24,240,Assembly/Purchased
+1.26,SP-007,1,30,Assembly/Purchased
+1.27,SP-005,1,10,Assembly/Purchased
+1.28,SP-003,1,10,Assembly/Purchased
+1.29,SP-004,1,10,Assembly/Purchased

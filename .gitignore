@@ -1,3 +1,5 @@
 results/*.csv
 *.pyc
 .DS_Store
+data.csv
+*.csv

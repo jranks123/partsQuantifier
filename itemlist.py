@@ -1,15 +1,19 @@
 # coding: utf-8
 from fileutils import writeResults
 from springpart import SpringPartList
+from gsheets import push_csv_to_gsheet, find_sheet_id_by_name
 from item import Item
 
 class ItemList(object):
     def __init__(self, itemListRaw):
         itemList = []
         for rawItem in itemListRaw:
-            itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3], "type": rawItem[4]}
-            item = Item(**itemObj)
-            itemList.append(item)
+            if(len(rawItem[1]) > 0):
+                itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3], "type": rawItem[4]}
+                item = Item(**itemObj)
+                itemList.append(item)
+            else:
+                print("Item " +  rawItem[0] + " has no sprint part number, so it was ignored")
         self.items = itemList
         self.setParents()
         self.setChildren()
@@ -168,9 +172,17 @@ class ItemList(object):
         self.calculateToBuyPartNumber()
 
 
+    def writeToGsheet(self, API, path, sheetName, SPREADSHEET_ID):
+        path = ('./results/' + path)
+        push_csv_to_gsheet(
+            csv_path=path
+            , sheet_id=find_sheet_id_by_name(API, sheetName, SPREADSHEET_ID)
+            , SPREADSHEET_ID = SPREADSHEET_ID
+            , API = API
+        )
 
-    def saveToFile(self):
-        path = ('./results/byItemNumber.csv')
+    def saveToFile(self, path):
+        path = ('./results/' + path)
         header = [
             'item number'
             , 'item parent'
