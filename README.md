@@ -17,6 +17,7 @@ You will need to download the Google API creds from https://drive.google.com/dri
 
 
 # Running Instructions
+
 open terminal
 navigate to this folder in terminal
 Get your input ready by replacing data.csv with your file.
