@@ -34,13 +34,6 @@ def push_csv_to_gsheet(csv_path, sheet_id, SPREADSHEET_ID, API, sheetName):
         }]
     }
 
-
-    # clear the sheet
-    rangeAll = '{0}!A1:Z'.format(sheetName)
-    body = {}
-    resultClear = API.spreadsheets( ).values( ).clear( spreadsheetId=SPREADSHEET_ID, range=rangeAll,
-                                                       body=body ).execute( )
-
     # write results to sheet
     request = API.spreadsheets().batchUpdate(spreadsheetId=SPREADSHEET_ID, body=body)
     response = request.execute()
