@@ -54,9 +54,11 @@ for file in files:
     itemListRaw = getItemListRawFromFile(worksheet, file['input_file_name'], file['input_sheet_name'])
     itemListRaw.pop(0)
 
+    print("Checking input for " + file['input_sheet_name'])
     if (checkItemListIsValid(itemListRaw) == False):
-        print("There was a problem with the data in " + file['input_sheet_name'] + ". Please fix the error before continuing")
+        print("There was a problem with the input data for this sheet. Skipping to next sheet \n")
     else:
+        print("Check complete\n")
         itemList = ItemList(itemListRaw)
         duplicateItem = itemList.getDuplicateItem()
         if (duplicateItem):
