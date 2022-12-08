@@ -25,6 +25,9 @@ def checkItemIsValid(rawItem):
     elif (not rawItem[2] or len(rawItem[2]) == 0):
         print("Error: Item " +  rawItem[0] + " has no itemQuantityToBuildParent")
         return False
+    elif (not rawItem[3].isnumeric()):
+        print("Error: The value of stock, " + rawItem[3] + " for Item " +  rawItem[0] + " is not a numeric value ")
+        return False
     elif (not rawItem[3] or len(rawItem[3]) == 0):
         print("Error: Item " +  rawItem[0] + " has no stock set")
         return False
