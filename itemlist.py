@@ -179,6 +179,7 @@ class ItemList(object):
                 , sheet_id=sheet_id
                 , SPREADSHEET_ID = SPREADSHEET_ID
                 , API = API
+                , sheetName = sheetName
             )
             if(res['spreadsheetId']):
                 print("Successfully wrote results to " +  sheetName)

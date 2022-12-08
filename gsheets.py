@@ -16,7 +16,7 @@ def find_sheet_id_by_name(API, sheet_name, SPREADSHEET_ID):
 
 
 
-def push_csv_to_gsheet(csv_path, sheet_id, SPREADSHEET_ID, API):
+def push_csv_to_gsheet(csv_path, sheet_id, SPREADSHEET_ID, API, sheetName):
     with open(csv_path, 'r', newline='') as csv_file:
         csvContents = csv_file.read()
     body = {
@@ -36,7 +36,7 @@ def push_csv_to_gsheet(csv_path, sheet_id, SPREADSHEET_ID, API):
 
 
     # clear the sheet
-    rangeAll = '{0}!A1:Z'.format( sheetName )
+    rangeAll = '{0}!A1:Z'.format(sheetName)
     body = {}
     resultClear = API.spreadsheets( ).values( ).clear( spreadsheetId=SPREADSHEET_ID, range=rangeAll,
                                                        body=body ).execute( )
