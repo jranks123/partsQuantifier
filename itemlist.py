@@ -3,6 +3,7 @@ from fileutils import writeResults
 from springpart import SpringPartList
 from gsheets import push_csv_to_gsheet, find_sheet_id_by_name
 from item import Item
+from datetime import datetime
 
 class ItemList(object):
     def __init__(self, itemListRaw):
@@ -202,6 +203,7 @@ class ItemList(object):
             , 'Could have of this item number if we use all stock allocated in children and build up to here'
             , 'remainder needed'
             , 'To Buy (part number)'
+            , 'timestamp of last update'
 
         ]
         rows = []
@@ -226,6 +228,7 @@ class ItemList(object):
                 , item.couldHaveOfThisItemNumberIfWeuseAllStockAllocatedInChildrenAndBuildUpToHere
                 , item.remainderNeeded
                 , item.toBuyPartNumber
+                , datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
                 ]
             rows.append(row)
         writeResults(path, header, rows)

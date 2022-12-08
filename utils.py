@@ -8,7 +8,7 @@ def getItemListRawFromFile(worksheet, file_name, sheet_name):
         writer.writerows(sheet.get_all_values())
         f.close()
 
-    with open(file_name) as f:
+    with open(file_name, newline='') as f:
         reader = csv.reader(f)
         itemListRaw = list(reader)
         f.close()
