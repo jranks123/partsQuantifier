@@ -15,10 +15,11 @@ def find_sheet_id_by_name(API, sheet_name, SPREADSHEET_ID):
                 return sheet['properties']['sheetId']
 
 
-def writeToGsheet(API, path, sheetName, SPREADSHEET_ID):
+def writeToGsheet(API, path, sheetName, SPREADSHEET_ID, worksheet):
     path = ('./csv_files/' + path)
     sheet_id = find_sheet_id_by_name(API, sheetName, SPREADSHEET_ID)
     if(sheet_id):
+        worksheet.worksheet(sheetName).clear()
         res = push_csv_to_gsheet(
             csv_path=path
             , sheet_id=sheet_id

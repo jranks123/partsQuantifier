@@ -83,7 +83,7 @@ for file in files:
             itemList.calculateStockCollumns(itemList.rootItems)
             itemList.calculateFinalCollumns(itemList.rootItems, totalNumberOfPods)
             itemList.saveToFile(file['output_file_name'])
-            writeToGsheet(API, file['output_file_name'], file['output_sheet_name'], SPREADSHEET_ID)
+            writeToGsheet(API, file['output_file_name'], file['output_sheet_name'], SPREADSHEET_ID, worksheet)
             if (file['spring_part_output_file_name'] and file['spring_part_output_sheet_name']):
                 itemList.springPartsList.saveToFile(file['spring_part_output_file_name'])
-                writeToGsheet(API, file['spring_part_output_file_name'], file['spring_part_output_sheet_name'], SPREADSHEET_ID)
+                writeToGsheet(API, file['spring_part_output_file_name'], file['spring_part_output_sheet_name'], SPREADSHEET_ID, worksheet)
