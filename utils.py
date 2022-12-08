@@ -3,7 +3,7 @@ import csv
 def getItemListRawFromFile(worksheet, file_name, sheet_name):
     sheet = worksheet.worksheet(sheet_name)
 
-    with open(file_name, 'w') as f:
+    with open(file_name, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(sheet.get_all_values())
         f.close()
