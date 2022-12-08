@@ -54,7 +54,7 @@ for file in files:
     itemListRaw = getItemListRawFromFile(worksheet, file['input_file_name'], file['input_sheet_name'])
     itemListRaw.pop(0)
 
-    print("Checking input for " + file['input_sheet_name'])
+    print("\nChecking input for " + file['input_sheet_name'])
     if (checkItemListIsValid(itemListRaw) == False):
         print("There was a problem with the input data for this sheet. Skipping to next sheet \n")
     else:
