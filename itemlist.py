@@ -8,12 +8,10 @@ class ItemList(object):
     def __init__(self, itemListRaw):
         itemList = []
         for rawItem in itemListRaw:
-            if(len(rawItem[1]) > 0):
-                itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3], "type": rawItem[4]}
-                item = Item(**itemObj)
-                itemList.append(item)
-            else:
-                print("Item " +  rawItem[0] + " has no sprint part number, so it was ignored")
+            itemObj = {"itemNumber":rawItem[0], "springPartNumber":rawItem[1], "itemQuantityToBuildParent":rawItem[2], "stock":rawItem[3], "type": rawItem[4]}
+            item = Item(**itemObj)
+            itemList.append(item)
+
         self.items = itemList
         self.setParents()
         self.setChildren()
@@ -22,7 +20,6 @@ class ItemList(object):
         self.setSpringPartQuantityToBuildPodForAllItems()
         self.setRootItems()
         self.setItemsWithSamePartNumber()
-
 
     def getItemByItemNumber(self, itemItemNumber):
         for item in self.items:
@@ -173,16 +170,18 @@ class ItemList(object):
 
 
     def writeToGsheet(self, API, path, sheetName, SPREADSHEET_ID):
-        path = ('./results/' + path)
-        push_csv_to_gsheet(
+        path = ('./csv_files/' + path)
+        res = push_csv_to_gsheet(
             csv_path=path
             , sheet_id=find_sheet_id_by_name(API, sheetName, SPREADSHEET_ID)
             , SPREADSHEET_ID = SPREADSHEET_ID
             , API = API
         )
+        if(res['spreadsheetId']):
+            print("Successfully wrote results to " +  sheetName)
 
     def saveToFile(self, path):
-        path = ('./results/' + path)
+        path = ('./csv_files/' + path)
         header = [
             'item number'
             , 'item parent'

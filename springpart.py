@@ -35,7 +35,7 @@ class SpringPartList(object):
                 return springPart
 
     def saveToFile(self):
-        path = ('./results/byPart.csv')
+        path = ('./csv_files/byPart.csv')
         header = ["spring part number", "part quantity for whole pod"]
         rows = []
         for springPart in self.springParts:

@@ -6,7 +6,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 import json
 from googleapiclient.discovery import build
 import sys
-from utils import getItemListRawFromFile
+from utils import getItemListRawFromFile, checkItemListIsValid
 
 
 totalNumberOfPods = 151
@@ -31,19 +31,19 @@ worksheet = client.open('SPRING BOM - ISS02')
 
 files = [
     {
-        'input_file_name': "theoreticalstock.csv"
+        'input_file_name': "csv_files/theoreticalstock.csv"
         , 'output_file_name': "byItemNumber_TheoreticalStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - theoretical stock"
         , 'output_sheet_name': "Assembly and purchasing onsite output"
     }
     , {
-        'input_file_name': "actualusablestock.csv"
+        'input_file_name': "csv_files/actualusablestock.csv"
         , 'output_file_name': "byItemNumber_ActualUsableStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - Actualusablestock"
         , 'output_sheet_name': "Assembly and purchasing actual usable output"
     }
     , {
-        'input_file_name': "onsitestock.csv"
+        'input_file_name': "csv_files/onsitestock.csv"
         , 'output_file_name': "byItemNumber_OnsiteStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - onsite stock"
         , 'output_sheet_name': "Assembly and purchasing full theoretical output"
@@ -53,14 +53,17 @@ files = [
 for file in files:
     itemListRaw = getItemListRawFromFile(worksheet, file['input_file_name'], file['input_sheet_name'])
     itemListRaw.pop(0)
-    itemList = ItemList(itemListRaw)
 
-    duplicateItem = itemList.getDuplicateItem()
-    if (duplicateItem):
-        print("Duplicate found in sheet " + file.input_sheet_name + ": " + duplicateItem.itemNumber)
+    if (checkItemListIsValid(itemListRaw) == False):
+        print("There was a problem with the data in " + file['input_sheet_name'] + ". Please fix the error before continuing")
     else:
-        itemList.calculateStockCollumns(itemList.rootItems)
-        itemList.calculateFinalCollumns(itemList.rootItems, totalNumberOfPods)
-        itemList.saveToFile(file['output_file_name'])
-        itemList.writeToGsheet(API, file['output_file_name'], file['output_sheet_name'], SPREADSHEET_ID)
-        #itemList.springPartsList.saveToFile()
+        itemList = ItemList(itemListRaw)
+        duplicateItem = itemList.getDuplicateItem()
+        if (duplicateItem):
+            print("Duplicate found in sheet " + file.input_sheet_name + ": " + duplicateItem.itemNumber)
+        else:
+            itemList.calculateStockCollumns(itemList.rootItems)
+            itemList.calculateFinalCollumns(itemList.rootItems, totalNumberOfPods)
+            itemList.saveToFile(file['output_file_name'])
+            itemList.writeToGsheet(API, file['output_file_name'], file['output_sheet_name'], SPREADSHEET_ID)
+            #itemList.springPartsList.saveToFile()
