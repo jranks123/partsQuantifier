@@ -7,6 +7,7 @@ import json
 from googleapiclient.discovery import build
 import sys
 from utils import getItemListRawFromFile, checkItemListIsValid
+from gsheets import writeToGsheet
 
 
 totalNumberOfPods = 151
@@ -35,18 +36,33 @@ files = [
         , 'output_file_name': "byItemNumber_TheoreticalStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - theoretical stock"
         , 'output_sheet_name': "Assembly and purchasing full theoretical output"
+        , 'spring_part_output_file_name': None
+        , 'spring_part_output_sheet_name': None
     }
     , {
         'input_file_name': "csv_files/actualusablestock.csv"
         , 'output_file_name': "byItemNumber_ActualUsableStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - Actualusablestock"
         , 'output_sheet_name': "Assembly and purchasing actual usable output"
+        , 'spring_part_output_file_name': None
+        , 'spring_part_output_sheet_name': None
     }
     , {
         'input_file_name': "csv_files/onsitestock.csv"
         , 'output_file_name': "byItemNumber_OnsiteStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - onsite stock"
         , 'output_sheet_name': "Assembly and purchasing onsite output"
+        , 'spring_part_output_file_name': None
+        , 'spring_part_output_sheet_name': None
+    }
+
+    , {
+        'input_file_name': "csv_files/fullBom.csv"
+        , 'output_file_name': "byItemNumber_fullBom.csv"
+        , 'input_sheet_name': "BOM full engineering input data"
+        , 'output_sheet_name': "BOM full engineering output data"
+        , 'spring_part_output_file_name': "bySpringPartNumber_fullBom.csv"
+        , 'spring_part_output_sheet_name': "BOM full engineering SpringPart output"
     }
 ]
 
@@ -67,5 +83,7 @@ for file in files:
             itemList.calculateStockCollumns(itemList.rootItems)
             itemList.calculateFinalCollumns(itemList.rootItems, totalNumberOfPods)
             itemList.saveToFile(file['output_file_name'])
-            itemList.writeToGsheet(API, file['output_file_name'], file['output_sheet_name'], SPREADSHEET_ID)
-            #itemList.springPartsList.saveToFile()
+            writeToGsheet(API, file['output_file_name'], file['output_sheet_name'], SPREADSHEET_ID)
+            if (file['spring_part_output_file_name'] and file['spring_part_output_sheet_name']):
+                itemList.springPartsList.saveToFile(file['spring_part_output_file_name'])
+                writeToGsheet(API, file['spring_part_output_file_name'], file['spring_part_output_sheet_name'], SPREADSHEET_ID)

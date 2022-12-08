@@ -15,6 +15,22 @@ def find_sheet_id_by_name(API, sheet_name, SPREADSHEET_ID):
                 return sheet['properties']['sheetId']
 
 
+def writeToGsheet(API, path, sheetName, SPREADSHEET_ID):
+    path = ('./csv_files/' + path)
+    sheet_id = find_sheet_id_by_name(API, sheetName, SPREADSHEET_ID)
+    if(sheet_id):
+        res = push_csv_to_gsheet(
+            csv_path=path
+            , sheet_id=sheet_id
+            , SPREADSHEET_ID = SPREADSHEET_ID
+            , API = API
+            , sheetName = sheetName
+        )
+        if(res['spreadsheetId']):
+            print("Successfully wrote results to " +  sheetName)
+    else:
+        print('Could not find sheet: ' + sheetName)
+
 
 def push_csv_to_gsheet(csv_path, sheet_id, SPREADSHEET_ID, API, sheetName):
     with open(csv_path, 'r', newline='') as csv_file:
