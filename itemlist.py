@@ -172,14 +172,18 @@ class ItemList(object):
 
     def writeToGsheet(self, API, path, sheetName, SPREADSHEET_ID):
         path = ('./csv_files/' + path)
-        res = push_csv_to_gsheet(
-            csv_path=path
-            , sheet_id=find_sheet_id_by_name(API, sheetName, SPREADSHEET_ID)
-            , SPREADSHEET_ID = SPREADSHEET_ID
-            , API = API
-        )
-        if(res['spreadsheetId']):
-            print("Successfully wrote results to " +  sheetName)
+        sheet_id = find_sheet_id_by_name(API, sheetName, SPREADSHEET_ID)
+        if(sheet_id):
+            res = push_csv_to_gsheet(
+                csv_path=path
+                , sheet_id=sheet_id
+                , SPREADSHEET_ID = SPREADSHEET_ID
+                , API = API
+            )
+            if(res['spreadsheetId']):
+                print("Successfully wrote results to " +  sheetName)
+        else:
+            print('Could not find sheet: ' + sheetName)
 
     def saveToFile(self, path):
         path = ('./csv_files/' + path)

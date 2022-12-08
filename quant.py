@@ -34,7 +34,7 @@ files = [
         'input_file_name': "csv_files/theoreticalstock.csv"
         , 'output_file_name': "byItemNumber_TheoreticalStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - theoretical stock"
-        , 'output_sheet_name': "Assembly and purchasing theoretical output"
+        , 'output_sheet_name': "Assembly and purchasing full theoretical output"
     }
     , {
         'input_file_name': "csv_files/actualusablestock.csv"
@@ -46,7 +46,7 @@ files = [
         'input_file_name': "csv_files/onsitestock.csv"
         , 'output_file_name': "byItemNumber_OnsiteStock.csv"
         , 'input_sheet_name': "Assembly & purchasing BOM DATA - onsite stock"
-        , 'output_sheet_name': "Assembly and purchasing full onsite output"
+        , 'output_sheet_name': "Assembly and purchasing onsite output"
     }
 ]
 

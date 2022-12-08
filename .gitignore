@@ -1,4 +1,4 @@
-results/*.csv
+csv_files/*.csv
 *.pyc
 .DS_Store
 data.csv
